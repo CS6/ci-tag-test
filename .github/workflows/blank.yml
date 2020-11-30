@@ -24,6 +24,28 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        
+      - name: "#️⃣ Generate Build Number"
+        id: buildnumber
+        uses: einaregilsson/build-number@v2
+        with:
+          token: ${{ secrets.github_token }}
+
+      - name: echo build number
+        run: echo Hello, world!  ${{ steps.buildnumber.outputs.build_number }}
+
+      - name: Generate build number
+        id: buildnumber_My
+        uses: einaregilsson/build-number@v3 
+        with:
+          token: ${{ secrets.github_token }}
+          prefix: client
+      - name: echo build number
+        run: echo Hello, world!  ${{ steps.buildnumber_My.outputs.build_number }}
+
+
+
+
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
