@@ -66,6 +66,13 @@ jobs:
                 SOURCE_BRANCH: ${{ steps.branch_name.outputs.SOURCE_BRANCH }}
                 SOURCE_TAG: ${{ steps.branch_name.outputs.SOURCE_TAG }}
 
+      - name: Check if version has been updated
+        id: version_check
+        uses: EndBug/version-check@v1
+        with:
+          diff-search: true
+          token: ${{ secrets.GITHUB_TOKEN }}
+
         
       - name: "#️⃣ Generate Build Number"
         id: buildnumber
