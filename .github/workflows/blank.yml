@@ -77,7 +77,11 @@ jobs:
       - name: echo Extract branch name
         run: |
                 echo ${{ steps.version_check.outputs.changed }}
+                echo ${{ steps.version_check.outputs.type }}
+                echo ${{ steps.version_check.outputs.commit }}
+                echo ${{ steps.version_check.outputs.version }}
                 echo ${{ steps.extract_branch.outputs.branch }}
+
         
       - name: echo Extract branch name
         if: steps.version_check.outputs.changed == 'true' && steps.extract_branch.outputs.branch == 'main'
