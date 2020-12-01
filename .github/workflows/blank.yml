@@ -34,6 +34,10 @@ jobs:
 #           git add .
 #           git commit -m "bump version"
 #           git push origin HEAD
+      - name: Extract branch name
+        id: extract_branch
+        run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
+
 
       - name: Extract tag name
         id: tag
