@@ -73,24 +73,36 @@ jobs:
           diff-search: true
           token: ${{ secrets.GITHUB_TOKEN }}
 
+
+      - name: echo Extract branch name
+        run: |
+                echo ${{ steps.version_check.outputs.changed }}
+                echo ${{ steps.extract_branch.outputs.branch }}
         
-      - name: "#️⃣ Generate Build Number"
-        id: buildnumber
-        uses: einaregilsson/build-number@v2
-        with:
-          token: ${{ secrets.github_token }}
+      - name: echo Extract branch name
+        if: steps.version_check.outputs.changed == 'true' && steps.extract_branch.outputs.branch == 'main'
+        run: |
+                echo ${{ steps.version_check.outputs.changed }}
+                echo ${{ steps.extract_branch.outputs.branch }}
 
-      - name: echo build number
-        run: echo Hello, world!  ${{ steps.buildnumber.outputs.build_number }}
+        
+#       - name: "#️⃣ Generate Build Number"
+#         id: buildnumber
+#         uses: einaregilsson/build-number@v2
+#         with:
+#           token: ${{ secrets.github_token }}
 
-      - name: Generate build number
-        id: buildnumber_My
-        uses: einaregilsson/build-number@v3 
-        with:
-          token: ${{ secrets.github_token }}
-          prefix: client
-      - name: echo build number
-        run: echo Hello, world!  ${{ steps.buildnumber_My.outputs.build_number }}
+#       - name: echo build number
+#         run: echo Hello, world!  ${{ steps.buildnumber.outputs.build_number }}
+
+#       - name: Generate build number
+#         id: buildnumber_My
+#         uses: einaregilsson/build-number@v3 
+#         with:
+#           token: ${{ secrets.github_token }}
+#           prefix: client
+#       - name: echo build number
+#         run: echo Hello, world!  ${{ steps.buildnumber_My.outputs.build_number }}
 
 
 
