@@ -24,20 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-#         with:
-#           token: ${{ secrets.GITHUB_TOKENN }}
-#       - uses: yanamura/ios-bump-version@v1
-#         with:
-#           version: 1.1.0
-#       - name: update
-#         run: |
-#           git add .
-#           git commit -m "bump version"
-#           git push origin HEAD
+        
       - name: Extract branch name
         id: extract_branch
         run: echo "::set-output name=branch::${GITHUB_REF#refs/heads/}"
-
 
       - name: Extract tag name
         id: tag
@@ -87,36 +77,8 @@ jobs:
         if: steps.version_check.outputs.changed == 'true' && steps.extract_branch.outputs.branch == 'main'
         run: |
                 echo ${{ steps.version_check.outputs.changed }}
+                echo ${{ steps.version_check.outputs.type }}
+                echo ${{ steps.version_check.outputs.commit }}
+                echo ${{ steps.version_check.outputs.version }}
                 echo ${{ steps.extract_branch.outputs.branch }}
 
-        
-#       - name: "#️⃣ Generate Build Number"
-#         id: buildnumber
-#         uses: einaregilsson/build-number@v2
-#         with:
-#           token: ${{ secrets.github_token }}
-
-#       - name: echo build number
-#         run: echo Hello, world!  ${{ steps.buildnumber.outputs.build_number }}
-
-#       - name: Generate build number
-#         id: buildnumber_My
-#         uses: einaregilsson/build-number@v3 
-#         with:
-#           token: ${{ secrets.github_token }}
-#           prefix: client
-#       - name: echo build number
-#         run: echo Hello, world!  ${{ steps.buildnumber_My.outputs.build_number }}
-
-
-
-
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
